@@ -64,9 +64,8 @@ for i in range(n_couches):
     # Récupérer la conductivité thermique du matériau de la couche
     resistance = epaisseurs_couches[i]/materiaux[materiaux_couches[i]]
     temperature.append(flux_chaleur * resistance + temperature[-1])
+    x.append(x[-1] + epaisseurs_couches[i])
     
-
-
 
 # Affichage du graphique
 fig, ax = plt.subplots()
