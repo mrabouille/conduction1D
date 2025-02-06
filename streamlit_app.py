@@ -19,14 +19,15 @@ materiaux = {
 st.sidebar.header("Conduction thermique dans une paroi")
 
 
-
-# Interface pour choisir le nombre de couches dans la paroi
+# Paramètres de l'utilisateur
+temperature_surface1 = st.sidebar.slider("Température de la surface 1 (T1)", min_value=0, max_value=100, value=20)
+temperature_surface2 = st.sidebar.slider("Température de la surface 2 (T2)", min_value=0, max_value=100, value=80)
 n_couches = st.sidebar.slider("Nombre de couches dans la paroi", min_value=1, max_value=5, value=2)
+
 
 # Listes pour stocker les matériaux et épaisseurs des différentes couches
 materiaux_couches = []
 epaisseurs_couches = []
-
 
 # Demander à l'utilisateur de choisir les matériaux et les épaisseurs pour chaque couche
 for i in range(n_couches):
@@ -40,13 +41,6 @@ for i in range(n_couches):
     epaisseur = st.sidebar.slider(f"Épaisseur de la couche {i + 1} (m)", min_value=0.1, max_value=5.0, value=1.0, step=0.1, key=f"epaisseur_{i}")
     epaisseurs_couches.append(epaisseur)
 
-
-
-# Paramètres de l'utilisateur
-# conductivite = st.slider("Conductivité thermique (k)", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
-temperature_surface1 = st.sidebar.slider("Température de la surface 1 (T1)", min_value=0, max_value=100, value=20)
-temperature_surface2 = st.sidebar.slider("Température de la surface 2 (T2)", min_value=0, max_value=100, value=80)
-# epaisseur_paroi = st.slider("Épaisseur de la paroi (L)", min_value=0.1, max_value=10.0, value=2.0, step=0.1)
 
 
 # Calcul de la température à travers la paroi
@@ -85,3 +79,6 @@ ax.legend()
 
 # Affichage dans Streamlit
 st.pyplot(fig)
+
+st.warning(f"Flux surfacique dans le mur: {flux_chaleur} W/m²")
+st.warning(f"Résistance équivalente: {resistance_totale} m².K/W")
