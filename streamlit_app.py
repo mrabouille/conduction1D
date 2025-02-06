@@ -34,7 +34,7 @@ for i in range(n_couches):
     st.sidebar.subheader(f"Couche {i + 1}")
     
     # Choisir le matériau pour chaque couche
-    materiau = st.sidebar.selectbox(f"Choisir un matériau pour la couche {i + 1}", list(materiaux.keys()), key=f"{list(materiaux.keys())[i]}")
+    materiau = st.sidebar.selectbox(f"Choisir un matériau pour la couche {i + 1}", list(materiaux.keys()), index=i)
     materiaux_couches.append(materiau)
     
     # Choisir l'épaisseur de chaque couche
