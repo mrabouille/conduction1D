@@ -4,14 +4,14 @@ import matplotlib.pyplot as plt
 
 # Bibliothèque de matériaux avec leur conductivité thermique (en W/m.K)
 materiaux = {
+    "Polystyrène expansé (EPS)": 0.03,
+    "Bois": 0.12,
+    "Verre": 1.0,
+    "Béton": 1.4,
+    "Argile": 1.5,
     "Acier": 50.0,
     "Aluminium": 235.0,
     "Cuivre": 398.0,
-    "Béton": 1.4,
-    "Polystyrène expansé (EPS)": 0.03,
-    "Verre": 1.0,
-    "Bois": 0.12,
-    "Argile": 1.5
 }
 
 
@@ -20,8 +20,8 @@ st.sidebar.header("Conduction thermique dans une paroi")
 
 
 # Paramètres de l'utilisateur
-temperature_surface1 = st.sidebar.slider("Température de la surface 1 (T1)", min_value=0, max_value=100, value=20)
-temperature_surface2 = st.sidebar.slider("Température de la surface 2 (T2)", min_value=0, max_value=100, value=80)
+temperature_surface1 = st.sidebar.slider("Température de la surface 1 (T1)", min_value=-10, max_value=40, value=5)
+temperature_surface2 = st.sidebar.slider("Température de la surface 2 (T2)", min_value=-10, max_value=40, value=20)
 n_couches = st.sidebar.slider("Nombre de couches dans la paroi", min_value=1, max_value=5, value=2)
 
 
@@ -34,12 +34,12 @@ for i in range(n_couches):
     st.sidebar.subheader(f"Couche {i + 1}")
     
     # Choisir le matériau pour chaque couche
-    materiau = st.sidebar.selectbox(f"Choisir un matériau pour la couche {i + 1}", list(materiaux.keys()), key=f"materiau_{i}")
+    materiau = st.sidebar.selectbox(f"Choisir un matériau pour la couche {i + 1}", list(materiaux.keys()), key=f"{materiaux[i]}")
     materiaux_couches.append(materiau)
     
     # Choisir l'épaisseur de chaque couche
-    epaisseur = st.sidebar.slider(f"Épaisseur de la couche {i + 1} (m)", min_value=0.1, max_value=5.0, value=1.0, step=0.1, key=f"epaisseur_{i}")
-    epaisseurs_couches.append(epaisseur)
+    epaisseur = st.sidebar.slider(f"Épaisseur de la couche {i + 1} (m)", min_value=1, max_value=30, value=10, step=1, key=f"epaisseur_{i}")
+    epaisseurs_couches.append(epaisseur/100)
 
 
 
@@ -80,5 +80,5 @@ ax.legend()
 # Affichage dans Streamlit
 st.pyplot(fig)
 
-st.warning(f"Flux surfacique dans le mur: {flux_chaleur} W/m²")
-st.warning(f"Résistance équivalente: {resistance_totale} m².K/W")
+st.warning(f"Flux surfacique dans le mur: {flux_chaleur:0.2f} W/m²")
+st.warning(f"Résistance équivalente: {resistance_totale:0.1f} m².K/W")
